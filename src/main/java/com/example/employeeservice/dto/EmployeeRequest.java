@@ -4,8 +4,14 @@ import com.example.employeeservice.enums.Department;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
+
+@Getter
+@Setter
 @XmlRootElement(name = "Employee")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class EmployeeRequest {

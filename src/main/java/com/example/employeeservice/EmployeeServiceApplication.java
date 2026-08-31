@@ -3,9 +3,11 @@ package com.example.employeeservice;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.jms.annotation.EnableJms;
 
 @SpringBootApplication
 @EnableJpaAuditing
+
 public class EmployeeServiceApplication {
 
     public static void main(String[] args) {
