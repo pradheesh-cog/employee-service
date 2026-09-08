@@ -7,7 +7,7 @@ import org.springframework.jms.annotation.EnableJms;
 
 @SpringBootApplication
 @EnableJpaAuditing
-
+@EnableJms
 public class EmployeeServiceApplication {
 
     public static void main(String[] args) {

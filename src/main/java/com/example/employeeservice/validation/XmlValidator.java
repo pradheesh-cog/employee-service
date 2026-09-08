@@ -16,11 +16,11 @@ import java.io.StringReader;
 @Component
 public class XmlValidator {
 
-    @Value("${xml.schema.path}")
+
     private final String xsdPath;
 
     public XmlValidator(
-             String xsdPath) {
+            @Value("${xml.schema.path}") String xsdPath) {
         this.xsdPath = xsdPath;
     }
 

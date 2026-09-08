@@ -13,7 +13,7 @@ public class EmployeeMapper {
                 .name(request.getName())
                 .email(request.getEmail())
                 .department(request.getDepartment())
-                .dateOfJoining(request.getDateOfJoining())
+                .dateOfJoining(request.getCreatedDateAsLocalDateTime())
                 .build();
     }
 
@@ -32,7 +32,7 @@ public class EmployeeMapper {
         employee.setName(request.getName());
         employee.setEmail(request.getEmail());
         employee.setDepartment(request.getDepartment());
-        employee.setDateOfJoining(request.getDateOfJoining());
+        employee.setDateOfJoining(request.getCreatedDateAsLocalDateTime());
     }
 
 }

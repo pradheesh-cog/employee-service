@@ -7,6 +7,8 @@ import com.example.employeeservice.enums.AuditAction;
 import com.example.employeeservice.enums.AuditSource;
 import com.example.employeeservice.exception.DuplicateEmployeeException;
 import com.example.employeeservice.mapper.EmployeeMapper;
+import com.example.employeeservice.messaging.EmployeeEvent;
+import com.example.employeeservice.messaging.EmployeeEventProducer;
 import com.example.employeeservice.repository.EmployeeRepository;
 import com.example.employeeservice.service.AuditLogService;
 import com.example.employeeservice.service.EmployeeService;
@@ -14,6 +16,7 @@ import com.example.employeeservice.exception.EmployeeNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -23,6 +26,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final EmployeeRepository employeeRepository;
     private final EmployeeMapper employeeMapper;
     private final AuditLogService auditLogService;
+    private final EmployeeEventProducer producer;
 
     @Override
     public EmployeeResponse createEmployee(
@@ -43,6 +47,13 @@ public class EmployeeServiceImpl implements EmployeeService {
                 AuditSource.REST,
                 null
         );
+        producer.publish(
+                EmployeeEvent.builder()
+                        .employeeId(employee.getId())
+                        .action(AuditAction.CREATE)
+                        .timestamp(LocalDateTime.now())
+                        .build()
+        );
 
         return employeeMapper.toResponse(employee);
     }
@@ -62,6 +73,14 @@ public class EmployeeServiceImpl implements EmployeeService {
                 AuditAction.UPDATE,
                 AuditSource.REST,
                 null
+        );
+
+        producer.publish(
+                EmployeeEvent.builder()
+                        .employeeId(employee.getId())
+                        .action(AuditAction.UPDATE)
+                        .timestamp(LocalDateTime.now())
+                        .build()
         );
 
         return employeeMapper.toResponse(employee);
@@ -98,6 +117,14 @@ public class EmployeeServiceImpl implements EmployeeService {
                 AuditAction.DELETE,
                 AuditSource.REST,
                 null
+        );
+
+        producer.publish(
+                EmployeeEvent.builder()
+                        .employeeId(employee.getId())
+                        .action(AuditAction.DELETE)
+                        .timestamp(LocalDateTime.now())
+                        .build()
         );
     }
 

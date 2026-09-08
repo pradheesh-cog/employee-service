@@ -7,8 +7,11 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 @Getter
 @Setter
@@ -18,6 +21,11 @@ public class EmployeeRequest {
     String name;
     String email;
     Department department;
-    LocalDate dateOfJoining;
+    String dateOfJoining;
+
+    public LocalDate getCreatedDateAsLocalDateTime() {
+        return LocalDate.parse(dateOfJoining);
+    }
+
 
 }
